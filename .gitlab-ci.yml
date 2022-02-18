@@ -40,7 +40,7 @@ api-test-job:   # This job also runs in the test stage.
   tags:
     - "u20"
   script:
-    - curl -X GET -u admin:Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U 127.0.0.1:8000 /v1/status
+    - curl -X GET -u admin:Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U 127.0.0.1:8000/v1/status
     - sleep 10
     - echo "No lint issues found."
 
