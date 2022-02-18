@@ -20,19 +20,25 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
+  tags:
+    - "u20"
   script:
-    - docker build -t alan0415/odlux-onos-agent:latest .
+    - sudo docker build -t alan0415/odlux-onos-agent:latest .
     #- echo "Compile complete."
 
 start-docker-images:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
+  tags:
+    - "u20"
   script:
-    - docker run -d --name=gitlab-runner-test -p 8000:8000 alan0415/odlux-agent:latest
+    - sudo docker run -d --name=gitlab-runner-test -p 8000:8000 alan0415/odlux-agent:latest
     #- sleep 60
     #- echo "Code coverage is 90%"
 
 api-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
+  tags:
+    - "u20"
   script:
     - curl -X GET -u admin:Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U 127.0.0.1:8000 /v1/status
     - sleep 10
@@ -40,9 +46,11 @@ api-test-job:   # This job also runs in the test stage.
 
 stop-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
+  tags:
+    - "u20"
   script:
-    - docker stop gitlab-runner-test
-    - docker rm gitlab-runner-test
+    - sudo docker stop gitlab-runner-test
+    - sudo docker rm gitlab-runner-test
     - echo "Stop and rm docker container"
 
 #deploy-job:      # This job runs in the deploy stage.
