@@ -23,7 +23,7 @@ build-job:       # This job runs in the build stage, which runs first.
   tags:
     - "u20"
   script:
-    - docker build -t alan0415/odlux-onos-agent:latest .
+    - sudo docker build -t alan0415/odlux-onos-agent:latest .
     #- echo "Compile complete."
 
 start-docker-images:   # This job runs in the test stage.
@@ -31,7 +31,7 @@ start-docker-images:   # This job runs in the test stage.
   tags:
     - "u20"
   script:
-    - docker run -d --name=gitlab-runner-test -p 8000:8000 alan0415/odlux-agent:latest
+    - sudo docker run -d --name=gitlab-runner-test -p 8000:8000 alan0415/odlux-agent:latest
     #- sleep 60
     #- echo "Code coverage is 90%"
 
@@ -49,8 +49,8 @@ stop-test-job:   # This job also runs in the test stage.
   tags:
     - "u20"
   script:
-    - docker stop gitlab-runner-test
-    - docker rm gitlab-runner-test
+    - sudo docker stop gitlab-runner-test
+    - sudo docker rm gitlab-runner-test
     - echo "Stop and rm docker container"
 
 #deploy-job:      # This job runs in the deploy stage.
